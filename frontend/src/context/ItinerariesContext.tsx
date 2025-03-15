@@ -169,7 +169,6 @@ const itineraries_mock: { id: number; name: string }[] = [
   { id: 4, name: "Nature and City Escape" },
 ];
 
-
 interface ItinerariesContextProps {
   itineraries: ItineraryType[];
   setSelectedItineraryById: (id: number) => void;
@@ -178,7 +177,10 @@ interface ItinerariesContextProps {
   addItinerary: (name: string) => void;
   selectedItinerary: ItineraryType | null;
   addLocation: (name: string, desc: string, coords: google.maps.LatLngLiteral) => void;
+  deleteLocation: (id: number) => void;
   // locations: LocationType[] | null;
+  selectedCoords: google.maps.LatLngLiteral | null;
+  setSelectedCoords: Dispatch<SetStateAction<google.maps.LatLngLiteral | null>>;
 }
 
 const ItinerariesContext = createContext<ItinerariesContextProps | undefined>(undefined);
@@ -188,6 +190,7 @@ const ItinerariesProvider = ({ children }: { children: ReactNode }) => {
   const [selectedItinerary, setSelectedItinerary] = useState<ItineraryType | null>(null);
   const [locations, setLocations] =
     useState<(LocationType & { itineraryId: number })[]>(locations_mock);
+  const [selectedCoords, setSelectedCoords] = useState<google.maps.LatLngLiteral | null>(null);
 
   const setSelectedItineraryById = (id: number) => {
     const itinerary = itineraries.find((itinerary) => itinerary.id === id);
@@ -219,7 +222,7 @@ const ItinerariesProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const addItinerary = (name: string) => {
-    const newItinerary = { id: Math.random(), name };
+    const newItinerary = { id: Number(((Math.random() * 1000) / 5).toFixed(0)), name };
     setItineraries((itins) => [...itins, newItinerary]);
   };
 
@@ -234,6 +237,11 @@ const ItinerariesProvider = ({ children }: { children: ReactNode }) => {
     setLocations((oldLocations) => [...oldLocations, locationWithItinId]);
   };
 
+  const deleteLocation = (id: number) => {
+    if (!selectedItinerary) return;
+    setLocations((oldLocations) => oldLocations.filter((location) => location.id !== id));
+  };
+
   return (
     <ItinerariesContext.Provider
       value={{
@@ -243,8 +251,11 @@ const ItinerariesProvider = ({ children }: { children: ReactNode }) => {
         addItinerary,
         selectedItinerary,
         addLocation,
+        deleteLocation,
         // locations,
         getItineraryLocations,
+        selectedCoords,
+        setSelectedCoords,
       }}
     >
       {children}
