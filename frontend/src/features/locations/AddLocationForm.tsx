@@ -1,30 +1,32 @@
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/Button";
-import { useLocationsContext } from "../../context/LocationsContext";
+import { useItinerariesContext } from "../../context/ItinerariesContext";
 import { FormEvent, useState } from "react";
 
 const AddLocationForm = () => {
-  const { selectedLocation, addLocation, setSelectedLocation } = useLocationsContext();
+  const navigate = useNavigate();
+  const { addLocation, selectedCoords, setSelectedCoords } = useItinerariesContext();
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+
+  const { id } = useParams();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!name) return;
-    if (!selectedLocation) return;
+    if (!selectedCoords) return;
 
-    const newLocation = {
-      id: Math.random(),
-      name,
-      description,
-      coordinates: selectedLocation,
-    };
-
-    addLocation(newLocation);
+    addLocation(name, description, selectedCoords);
 
     setName("");
     setDescription("");
-    setSelectedLocation(null);
+    setSelectedCoords(null);
+    if (id) {
+      navigate(`/itinerary/${id}`);
+    } else {
+      navigate("/");
+    }
   };
 
   return (
@@ -47,11 +49,12 @@ const AddLocationForm = () => {
         onChange={(e) => setDescription(e.target.value)}
       />
 
-      {selectedLocation && (
+      {selectedCoords && (
         <Button type="submit" className="absolute bottom-4 left-4 ">
           Add
         </Button>
       )}
+      <Link to={`/itinerary/${id}`}>Back</Link>
     </form>
   );
 };

@@ -2,10 +2,12 @@ import { FormEvent, useState } from "react";
 import { useItinerariesContext } from "../../context/ItinerariesContext";
 import Button from "../../components/Button";
 import LinkHome from "../../components/LinkHome";
+import { useNavigate } from "react-router-dom";
 
 const AddItineraryForm = () => {
   const [name, setName] = useState<string>("");
   const { addItinerary } = useItinerariesContext();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -13,6 +15,7 @@ const AddItineraryForm = () => {
     console.log("add itin");
     addItinerary(name);
     setName("");
+    navigate("/");
   };
 
   return (
