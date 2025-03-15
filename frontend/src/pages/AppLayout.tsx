@@ -1,14 +1,15 @@
 import Sidebar from "../components/Sidebar";
-import Map from "../features/map/Map";
+import MapDisplay from "../features/map/MapDisplay";
+
 
 const AppLayout = () => {
   return (
-    <div className="grid grid-cols-12">
+    <div className="grid grid-cols-12 h-screen p-2 ">
       <div className="col-span-4">
         <Sidebar />
       </div>
-      <div className="col-span-8">
-        <Map />
+      <div className="col-span-8 h-full">
+        <MapDisplay  />
       </div>
     </div>
   );
