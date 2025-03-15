@@ -1,8 +1,7 @@
+import { Outlet } from "react-router-dom";
 
 const Sidebar = () => {
-  return (
-    <div>Sidebar</div>
-  )
-}
+  return <Outlet />;
+};
 
-export default Sidebar
+export default Sidebar;
