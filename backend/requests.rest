@@ -1,0 +1,19 @@
+#   Create a new location
+POST /api/ HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+  "name": "Eiffel Tower",
+  "description": "An iconic symbol of Paris",
+  "latitude": 48.8584,
+  "longitude": 2.2945,
+  "itineraryId": "itinerary-cuid-123"
+}
+
+#   Get all the locations
+GET http://localhost:3000/api/locations
+
+#   Get singular location (using ID)
+GET http://localhost:3000/api/locations/itinerary-cuid-123
+
