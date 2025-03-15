@@ -28,6 +28,15 @@
   },
   {
     "id": 4,
+    "name": "Venice Beach",
+    "description": "A vibrant beachfront neighborhood known for its boardwalk, street performers, and skate park.",
+    "coordinates": {
+      "lat": 33.985,
+      "lng": -118.4695
+    }
+  },
+  {
+    "id": 5,
     "name": "Grand Canyon National Park",
     "description": "One of the world's most breathtaking natural wonders, featuring vast canyon landscapes.",
     "coordinates": {
@@ -36,7 +45,7 @@
     }
   },
   {
-    "id": 5,
+    "id": 6,
     "name": "Las Vegas Strip",
     "description": "A famous stretch of Las Vegas Boulevard known for its vibrant nightlife, casinos, and entertainment.",
     "coordinates": {
