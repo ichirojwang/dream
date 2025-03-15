@@ -30,8 +30,8 @@ const MapDisplay = () => {
         onLoad={() => console.log("Maps API has loaded")}
       >
         <Map
-          defaultZoom={6}
-          defaultCenter={{ lat: 36.59740854796758, lng: -117.02889432149375 }}
+          defaultZoom={4}
+          defaultCenter={{ lat: 40.781905431977904, lng: -102.45268368873145 }}
           mapId={import.meta.env.VITE_MAP_ID}
           // onCameraChanged={(ev: MapCameraChangedEvent) =>console.log("camera changed:", ev.detail.center, "zoom:", ev.detail.zoom)}
           onClick={handleClick}

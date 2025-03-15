@@ -1,172 +1,98 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
-
 const locations_mock: (LocationType & { itineraryId: number })[] = [
   {
     id: 1,
     name: "Golden Gate Bridge",
     description: "Iconic suspension bridge in San Francisco, offering breathtaking views.",
-    coordinates: {
-      lat: 37.8199,
-      lng: -122.4783,
-    },
+    coordinates: { lat: 37.8199, lng: -122.4783 },
     itineraryId: 1, // California Adventure
   },
   {
     id: 2,
-    name: "Yosemite National Park",
-    description: "Famous for giant sequoia trees, waterfalls, and stunning granite cliffs.",
-    coordinates: {
-      lat: 37.8651,
-      lng: -119.5383,
-    },
-    itineraryId: 4, // Nature and City Escape
+    name: "Santa Monica Pier",
+    description: "A popular beachside attraction featuring an amusement park and ocean views.",
+    coordinates: { lat: 34.0092, lng: -118.4973 },
+    itineraryId: 1, // California Adventure
   },
   {
     id: 3,
-    name: "Santa Monica Pier",
-    description: "A popular beachside attraction featuring an amusement park and ocean views.",
-    coordinates: {
-      lat: 34.0092,
-      lng: -118.4973,
-    },
+    name: "Venice Beach",
+    description:
+      "A vibrant beachfront neighborhood known for its boardwalk, street performers, and skate park.",
+    coordinates: { lat: 33.985, lng: -118.4695 },
     itineraryId: 1, // California Adventure
   },
   {
     id: 4,
-    name: "Venice Beach",
-    description:
-      "A vibrant beachfront neighborhood known for its boardwalk, street performers, and skate park.",
-    coordinates: {
-      lat: 33.985,
-      lng: -118.4695,
-    },
-    itineraryId: 1, // California Adventure
-  },
-  {
-    id: 5,
     name: "Grand Canyon National Park",
     description:
       "One of the world's most breathtaking natural wonders, featuring vast canyon landscapes.",
-    coordinates: {
-      lat: 36.1069,
-      lng: -112.1129,
-    },
+    coordinates: { lat: 36.1069, lng: -112.1129 },
+    itineraryId: 2, // Southwest Wonders
+  },
+  {
+    id: 5,
+    name: "Las Vegas Strip",
+    description:
+      "A famous stretch of Las Vegas Boulevard known for its vibrant nightlife, casinos, and entertainment.",
+    coordinates: { lat: 36.1147, lng: -115.1728 },
     itineraryId: 2, // Southwest Wonders
   },
   {
     id: 6,
-    name: "Las Vegas Strip",
+    name: "Zion National Park",
     description:
-      "A famous stretch of Las Vegas Boulevard known for its vibrant nightlife, casinos, and entertainment.",
-    coordinates: {
-      lat: 36.1147,
-      lng: -115.1728,
-    },
+      "A breathtaking national park in Utah known for towering sandstone cliffs and scenic hikes.",
+    coordinates: { lat: 37.2982, lng: -113.0263 },
     itineraryId: 2, // Southwest Wonders
   },
   {
     id: 7,
-    name: "Hollywood Walk of Fame",
-    description:
-      "A historic sidewalk featuring stars honoring celebrities in the entertainment industry.",
-    coordinates: {
-      lat: 34.1015,
-      lng: -118.3269,
-    },
-    itineraryId: 3, // West Coast Icons
-  },
-  {
-    id: 8,
-    name: "Universal Studios Hollywood",
-    description:
-      "A world-famous film studio and theme park with thrilling rides and movie attractions.",
-    coordinates: {
-      lat: 34.1381,
-      lng: -118.3534,
-    },
-    itineraryId: 3, // West Coast Icons
-  },
-  {
-    id: 9,
-    name: "Death Valley National Park",
-    description:
-      "One of the hottest places on Earth, known for its vast desert landscapes and extreme temperatures.",
-    coordinates: {
-      lat: 36.5323,
-      lng: -116.9325,
-    },
-    itineraryId: 4, // Nature and City Escape
-  },
-  {
-    id: 10,
-    name: "Lake Tahoe",
-    description:
-      "A stunning freshwater lake in the Sierra Nevada, popular for skiing and summer water activities.",
-    coordinates: {
-      lat: 39.0968,
-      lng: -120.0324,
-    },
-    itineraryId: 4, // Nature and City Escape
-  },
-  {
-    id: 11,
-    name: "Sequoia National Park",
-    description: "Home to towering giant sequoia trees, including the famous General Sherman Tree.",
-    coordinates: {
-      lat: 36.4864,
-      lng: -118.5658,
-    },
-    itineraryId: 4, // Nature and City Escape
-  },
-  {
-    id: 12,
-    name: "Santa Cruz Beach Boardwalk",
-    description: "A classic seaside amusement park with rides, arcades, and oceanfront views.",
-    coordinates: {
-      lat: 36.9644,
-      lng: -122.0176,
-    },
-    itineraryId: 1, // California Adventure
-  },
-  {
-    id: 13,
-    name: "Alcatraz Island",
-    description: "A historic island in San Francisco Bay, once home to a notorious federal prison.",
-    coordinates: {
-      lat: 37.8267,
-      lng: -122.423,
-    },
-    itineraryId: 3, // West Coast Icons
-  },
-  {
-    id: 14,
-    name: "Zion National Park",
-    description:
-      "A breathtaking national park in Utah known for towering sandstone cliffs and scenic hikes.",
-    coordinates: {
-      lat: 37.2982,
-      lng: -113.0263,
-    },
-    itineraryId: 2, // Southwest Wonders
-  },
-  {
-    id: 15,
     name: "Hoover Dam",
     description:
       "A marvel of modern engineering, providing hydroelectric power and breathtaking views.",
-    coordinates: {
-      lat: 36.0161,
-      lng: -114.7377,
-    },
+    coordinates: { lat: 36.0161, lng: -114.7377 },
     itineraryId: 2, // Southwest Wonders
+  },
+  // Canada Locations
+  {
+    id: 8,
+    name: "Niagara Falls",
+    description:
+      "A world-famous waterfall on the Canada-US border, offering breathtaking views and boat tours.",
+    coordinates: { lat: 43.0828, lng: -79.0742 },
+    itineraryId: 3, // Canada Trip
+  },
+  {
+    id: 9,
+    name: "Banff National Park",
+    description:
+      "A stunning national park in the Canadian Rockies, known for its crystal-clear lakes and scenic hikes.",
+    coordinates: { lat: 51.4968, lng: -115.9281 },
+    itineraryId: 3, // Canada Trip
+  },
+  {
+    id: 10,
+    name: "Vancouver",
+    description:
+      "A vibrant coastal city in British Columbia, known for its stunning waterfront, mountains, and diverse culture.",
+    coordinates: { lat: 49.2827, lng: -123.1207 },
+    itineraryId: 3, // Canada Trip
+  },
+  {
+    id: 11,
+    name: "Old Quebec",
+    description:
+      "A charming historic district with cobblestone streets, French architecture, and rich cultural heritage.",
+    coordinates: { lat: 46.8139, lng: -71.2082 },
+    itineraryId: 3, // Canada Trip
   },
 ];
 
 const itineraries_mock: { id: number; name: string }[] = [
   { id: 1, name: "California Adventure" },
   { id: 2, name: "Southwest Wonders" },
-  { id: 3, name: "West Coast Icons" },
-  { id: 4, name: "Nature and City Escape" },
+  { id: 3, name: "Canada Trip" },
 ];
 
 interface ItinerariesContextProps {
