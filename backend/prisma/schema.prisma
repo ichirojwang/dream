@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE")
+}
+
+model Itinerary {
+    id   String @id @default(cuid())
+    name String
+
+    locationIds String[]
+    locations   Location[]
+}
+
+model Location {
+    id          String @id @default(cuid())
+    name        String
+    description String
+
+    latitude  Float
+    longitude Float
+
+    itineraryId String
+    itinerary   Itinerary @relation(fields: [itineraryId], references: [id])
+}
