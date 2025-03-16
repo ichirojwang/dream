@@ -4,6 +4,7 @@ import MapPolyline from "./MapPolyline";
 import { useCallback } from "react";
 import { useItinerariesContext } from "../../context/ItinerariesContext";
 import { useNavigate, useParams } from "react-router-dom";
+import MapFitBounds from "./MapFitBounds";
 
 const MapDisplay = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const MapDisplay = () => {
             <>
               <Markers locations={locations} />
               <MapPolyline path={locations.map((location) => location.coordinates)} />
+              <MapFitBounds locations={locations.map((location) => location.coordinates)} />
               {selectedCoords && (
                 <AdvancedMarker position={selectedCoords}>
                   <Pin />
