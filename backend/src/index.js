@@ -1,10 +1,9 @@
-const express = require("express");
-const dotenv = require("dotenv");
+import "./config.js";
+import express from "express";
 
-const itineraryRoutes = require("./routes/itineraryRoutes");
-const locationRoutes = require("./routes/locationRoutes");
+import itineraryRoutes from "./routes/itineraryRoutes.js";
+import locationRoutes from "./routes/locationRoutes.js";
 
-dotenv.config();
 const app = express();
 
 app.use(express.json());
@@ -12,7 +11,4 @@ app.use(express.json());
 app.use("/api/itineraries", itineraryRoutes);
 app.use("/api/locations", locationRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-module.exports = app;
+export default app;
